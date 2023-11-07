@@ -119,6 +119,22 @@ exports.postCartDeleteProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+exports.PostOrders = (req, res, next) => {
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart.getProducts();
+    })
+    .then((products) => {
+      console.log(products);
+    })
+    .catch((err) => console.log(err));
+  // res.render("admin/create-order", {
+  //   pageTitle: "Create Order",
+  //   path: "/create-order",
+  // });
+};
+
 exports.getOrders = (req, res, next) => {
   res.render("shop/orders", {
     path: "/orders",
