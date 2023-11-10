@@ -1,5 +1,7 @@
 const path = require("path");
 
+const mongoConnect = require("./util/database").mongoConnect;
+
 const errorController = require("./controllers/error");
 
 const express = require("express");
