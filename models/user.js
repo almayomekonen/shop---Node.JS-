@@ -14,14 +14,45 @@ const userSchema = new Schema({
   cart: {
     items: [
       {
-        productId: { type: Schema.Types.ObjectId, required: true },
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+          required: false,
+        },
         quantity: { type: Number, required: true },
       },
     ],
   },
 });
 
+userSchema.methods.addToCart = function (product) {
+  const cartItems = this.cart && this.cart.items ? this.cart.items : [];
+  const cartProductIndex = cartItems.findIndex((CartP) => {
+    return CartP.productId.toString() === product._id.toString();
+  });
+  let newQuantity = 1;
+  const updatedCartItems = [...this.cart.items];
+
+  if (cartProductIndex >= 0) {
+    newQuantity = cartItems[cartProductIndex].quantity + 1;
+    updatedCartItems[cartProductIndex].quantity = newQuantity;
+  } else {
+    updatedCartItems.push({
+      productId: product._id,
+      quantity: newQuantity,
+    });
+  }
+
+  const updatedCart = {
+    items: updatedCartItems,
+  };
+
+  this.cart = updatedCart;
+  return this.save();
+};
+
 module.exports = mongoose.model("User", userSchema);
+
 // const mongoDb = require("mongodb");
 // const getDb = require("../util/database").getDb;
 
@@ -41,34 +72,7 @@ module.exports = mongoose.model("User", userSchema);
 //   }
 
 //   addToCart(product) {
-//     const cartItems = this.cart && this.cart.items ? this.cart.items : [];
-//     const cartProductIndex = cartItems.findIndex((CartP) => {
-//       return CartP.productId.toString() === product._id.toString();
-//     });
-//     let newQuantity = 1;
-//     const updatedCartItems = [...cartItems];
-
-//     if (cartProductIndex >= 0) {
-//       newQuantity = cartItems[cartProductIndex].quantity + 1;
-//       updatedCartItems[cartProductIndex].quantity = newQuantity;
-//     } else {
-//       updatedCartItems.push({
-//         productId: new ObjectId(product._id),
-//         quantity: newQuantity,
-//       });
-//     }
-
-//     const updatedCart = {
-//       items: updatedCartItems,
-//     };
-
-//     const db = getDb();
-//     return db
-//       .collection("users")
-//       .updateOne(
-//         { _id: new ObjectId(this._id) },
-//         { $set: { cart: updatedCart } }
-//       );
+//
 //   }
 
 //   getCart() {
