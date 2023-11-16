@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  User.findById("65529bb791c0db788b924ff4")
+  User.findById("655567b564deb59c7bc7babc")
     .then((user) => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
+      req.user = user;
       next();
     })
     .catch((err) => console.log(err));
@@ -38,6 +38,18 @@ mongoose
     "mongodb+srv://almayo:7Io7qZCy4UCs4jpj@cluster0.26zhx4l.mongodb.net/shop"
   )
   .then((result) => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          name: "almayo",
+          email: "almayo@cluster0.26zhx4l.mong",
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
     app.listen(3000);
   })
   .catch((err) => {
