@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-// schhema is a blueprint -  a plan
+// a plan
 const userSchema = new Schema({
   name: {
     type: String,
@@ -56,6 +56,11 @@ userSchema.methods.removeFromCart = function (productId) {
     return item.productId.toString() !== productId.toString();
   });
   this.cart.items = updatedCartItems;
+  return this.save();
+};
+
+userSchema.methods.clearCart = function () {
+  this.cart = { items: [] };
   return this.save();
 };
 
