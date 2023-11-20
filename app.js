@@ -1,14 +1,24 @@
 const path = require("path");
 
 const mongoose = require("mongoose");
-const User = require("./models/user");
+const session = require("express-session");
+const MongoDBstore = require("connect-mongodb-session")(session);
 
 const errorController = require("./controllers/error");
+const User = require("./models/user");
 
 const express = require("express");
 const bodyParser = require("body-parser");
 
+// uri - Uniform Resource Identifier - מזהה משאבים אחיד
+const MONGO_URI =
+  "mongodb+srv://almayo:7Io7qZCy4UCs4jpj@cluster0.26zhx4l.mongodb.net/shop";
+
 const app = express();
+const store = new MongoDBstore({
+  uri: MONGO_URI,
+  collection: "sessions",
+});
 
 app.set("view engine", "ejs");
 app.set("views");
@@ -19,6 +29,14 @@ const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
+);
 
 app.use((req, res, next) => {
   User.findById("655567b564deb59c7bc7babc")
@@ -36,9 +54,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(
-    "mongodb+srv://almayo:7Io7qZCy4UCs4jpj@cluster0.26zhx4l.mongodb.net/shop"
-  )
+  .connect(MONGO_URI)
   .then((result) => {
     User.findOne().then((user) => {
       if (!user) {
