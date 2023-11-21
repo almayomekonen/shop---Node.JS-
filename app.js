@@ -1,27 +1,25 @@
 const path = require("path");
 
+const express = require("express");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const MongoDBstore = require("connect-mongodb-session")(session);
+const MongoDBStore = require("connect-mongodb-session")(session);
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
-const express = require("express");
-const bodyParser = require("body-parser");
-
-// uri - Uniform Resource Identifier - מזהה משאבים אחיד
-const MONGO_URI =
+const MONGODB_URI =
   "mongodb+srv://almayo:7Io7qZCy4UCs4jpj@cluster0.26zhx4l.mongodb.net/shop";
 
 const app = express();
-const store = new MongoDBstore({
-  uri: MONGO_URI,
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
   collection: "sessions",
 });
 
 app.set("view engine", "ejs");
-app.set("views");
+app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -57,13 +55,13 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGODB_URI)
   .then((result) => {
     User.findOne().then((user) => {
       if (!user) {
         const user = new User({
-          name: "almayo",
-          email: "almayo@cluster0.26zhx4l.mong",
+          name: "Max",
+          email: "max@test.com",
           cart: {
             items: [],
           },
