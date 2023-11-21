@@ -8,4 +8,6 @@ routes.get("/login", authControllers.getLogin);
 
 routes.post("/login", authControllers.postLogin);
 
+routes.post("/logout", authControllers.postLogout);
+
 module.exports = routes;
