@@ -1,6 +1,20 @@
+// EXmBDHphgVlEW1QgcrYUZh8hP9j98uWD - secret
+// SK03bd33e999c7d7e1b37976e95b74a4fd - CID
+
+const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
 
 const User = require("../models/user");
+
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key: "SK03bd33e999c7d7e1b37976e95b74a4fd",
+    },
+  })
+);
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash("error")[0] || null;
@@ -77,6 +91,14 @@ exports.postSignup = (req, res, next) => {
         })
         .then((result) => {
           res.redirect("/login");
+          return transporter
+            .sendMail({
+              to: email,
+              from: "shop@node-complete.com",
+              subject: "signup succeeded",
+              html: "<h1>You successfully signed-up</h1>",
+            })
+            .catch((err) => console.log(err));
         });
     })
     .catch((err) => {
@@ -89,4 +111,66 @@ exports.postLogout = (req, res, next) => {
     console.log(err);
     res.redirect("/");
   });
+};
+
+exports.getReset = (req, res, next) => {
+  let message = req.flash("error")[0] || null;
+  res.render("auth/reset", {
+    path: "",
+    pageTitle: "Reset Password",
+    errorMessage: message,
+  });
+};
+
+exports.postReset = (req, res, next) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      return res.redirect("/reset");
+    }
+    const token = buffer.toString("hex");
+
+    User.findOne({ email: req.body.email })
+      .then((user) => {
+        if (!user) {
+          req.flash("error", "User not found for reset password");
+          return res.redirect("/reset");
+        }
+        user.resetToken = token;
+        user.resetTokenExprination = Date.now() + 3600000;
+        return user.save();
+      })
+      .then((result) => {
+        res.redirect("/");
+        transporter.sendMail({
+          to: req.body.email,
+          from: "shop@node-complete.com",
+          subject: "Password reset",
+          html: `
+          <p>You requested a reset password</p>
+          <p>Click this <a href="http://localhost:3000/reset/${token}">link</a>  to set a  new password.</p>
+          `,
+        });
+      })
+
+      .catch((err) => console.log(err));
+  });
+};
+
+exports.getNewPassword = (req, res, next) => {
+  const token = req.params.token;
+  User.findOne({
+    resetToken: token,
+    resetTokenExprination: { $gt: Date.now() },
+  })
+    .then((user) => {
+      let message = req.flash("error")[0] || null;
+
+      res.render("/auth/new-password", {
+        path: "/new-password",
+        pageTitle: "New Password",
+        errorMessage: message,
+        userId: user._id.toString(),
+      });
+    })
+    .catch((err) => console.log(err));
 };
