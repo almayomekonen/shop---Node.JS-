@@ -1,12 +1,25 @@
 const express = require("express");
 
 const { check, body } = require("express-validator");
+const User = require("../models/user.js");
 
 const authController = require("../controllers/auth");
 
 const router = express.Router();
 
-router.get("/login", authController.getLogin);
+router.get(
+  "/login",
+  check("email")
+    .isEmail()
+    .withMessage("please enter a valid email address")
+    .custom((value, { req }) => {
+      if (value !== req.body.email) {
+        throw new Error("Password have to be match!");
+      }
+      return true;
+    }),
+  authController.getLogin
+);
 
 router.get("/signup", authController.getSignup);
 
@@ -19,10 +32,18 @@ router.post(
       .isEmail()
       .withMessage("please enter a valid email address")
       .custom((value, { req }) => {
-        if (value === "test2@test.com") {
-          throw new Error("this email address is Forbiden.");
-        }
-        return true;
+        // if (value === "test2@test.com") {
+        //   throw new Error("this email address is Forbiden.");
+        // }
+        // return true;
+
+        return User.findOne({ email: value }).then((userDoc) => {
+          if (userDoc) {
+            return Promise.reject(
+              "E-Mail exists already, please pick a different one."
+            );
+          }
+        });
       }),
     body(
       "password",
