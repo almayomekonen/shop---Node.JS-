@@ -1,5 +1,5 @@
 const express = require("express");
-const { check, body } = require("express-validator");
+const { check, body } = require("express-validator/check");
 
 const authController = require("../controllers/auth");
 const User = require("../models/user");
@@ -17,7 +17,6 @@ router.post(
       .isEmail()
       .withMessage("Please enter a valid email address.")
       .normalizeEmail(),
-
     body("password", "Password has to be valid.")
       .isLength({ min: 5 })
       .isAlphanumeric()
