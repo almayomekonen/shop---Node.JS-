@@ -1,7 +1,6 @@
 const crypto = require("crypto");
-
 const bcrypt = require("bcryptjs");
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 
 const User = require("../models/user");
 
@@ -196,15 +195,6 @@ exports.postReset = (req, res, next) => {
       })
       .then((result) => {
         res.redirect("/");
-        transporter.sendMail({
-          to: req.body.email,
-          from: "shop@node-complete.com",
-          subject: "Password reset",
-          html: `
-            <p>You requested a password reset</p>
-            <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
-          `,
-        });
       })
       .catch((err) => {
         const error = new Error(err);
