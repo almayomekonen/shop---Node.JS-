@@ -28,9 +28,8 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.addToCart = function (product) {
-  const cartItems = this.cart && this.cart.items ? this.cart.items : [];
-  const cartProductIndex = cartItems.findIndex((CartP) => {
-    return CartP.productId.toString() === product._id.toString();
+  const cartProductIndex = this.cart.items.findIndex((cp) => {
+    return cp.productId.toString() === product._id.toString();
   });
   let newQuantity = 1;
   const updatedCartItems = [...this.cart.items];
