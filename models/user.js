@@ -11,8 +11,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+
   resetToken: String,
   resetTokenExpiration: Date,
+
   cart: {
     items: [
       {
@@ -32,6 +34,7 @@ userSchema.methods.addToCart = function (product) {
     return cp.productId.toString() === product._id.toString();
   });
   let newQuantity = 1;
+
   const updatedCartItems = [...this.cart.items];
 
   if (cartProductIndex >= 0) {
