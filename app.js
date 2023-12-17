@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const https = require("https");
+const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -19,6 +20,8 @@ const User = require("./models/user");
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.26zhx4l.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const app = express();
+app.use(cors());
+
 const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "sessions",
