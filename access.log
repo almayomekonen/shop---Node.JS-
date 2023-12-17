@@ -1,3 +1,4 @@
 ::1 - - [15/Dec/2023:21:13:59 +0000] "GET /favicon.ico HTTP/1.1" 404 - "https://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 ::1 - - [15/Dec/2023:21:16:44 +0000] "GET /images/2023-12-11T23:04:46.963Z-puma.jpeg HTTP/1.1" 404 - "https://localhost:3000/?page=2" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 ::1 - - [15/Dec/2023:21:16:44 +0000] "GET /images/2023-12-11T22:56:54.320Z-my%20nefu.jpeg HTTP/1.1" 404 - "https://localhost:3000/?page=2" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [17/Dec/2023:05:25:31 +0000] "GET /favicon.ico HTTP/1.1" 404 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
