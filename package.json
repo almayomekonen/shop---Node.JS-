@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production MONGO_USER=almayo MONGO_PASSWORD=7Io7qZCy4UCs4jpj MONGO_DEFAULT_DATABASE=shop STRIPE_KEY=sk_test_51OJhbmHwilRsMq6DXxqIUzKsjtTLO6xhNCGsoK0sfrZJtxmqqrj2V3VmF7oS3WDHWObdBfAdSKKcXCdojZ8OXauR00jmHGAVwE node app.js",
     "start-server": "node app.js",
-    "start:dev": "nodemon app.js"
+    "almayo": "nodemon app.js"
   },
   "author": "Almayo Mekonen",
   "license": "ISC",
