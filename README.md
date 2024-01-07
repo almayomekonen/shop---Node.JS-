@@ -12,6 +12,9 @@ The shop includes essential features such as user authentication with bcryptjs, 
 and SQL database interaction through Sequelize. With support for various view engines, including EJS,
 Pug, and Handlebars, this shop application is crafted to provide a comprehensive and adaptable solution for both users and developers alike.
 
+<img style="width: 300px;" src="https://github.com/almayomekonen/almayomekonen/blob/main/shop.jpeg">
+
+
 ## Technologies
 
 - **Node.js**: The foundation for server-side JavaScript, ensuring efficient and scalable application development.
@@ -23,4 +26,3 @@ Pug, and Handlebars, this shop application is crafted to provide a comprehensive
 - **Sequelize**: Facilitating SQL database interactions, offering compatibility and versatility.
 - **EJS, Pug, Handlebars**: Multiple view engines providing flexibility for developers and enhancing the user interface.
 
-<img style="width: 200px;" src="https://github.com/almayomekonen/almayomekonen/blob/main/shop.jpeg">
