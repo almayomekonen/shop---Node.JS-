@@ -1,4 +1,3 @@
-// "sk_test_51OJhbmHwilRsMq6DXxqIUzKsjtTLO6xhNCGsoK0sfrZJtxmqqrj2V3VmF7oS3WDHWObdBfAdSKKcXCdojZ8OXauR00jmHGAVwE"
 const fs = require("fs");
 const path = require("path");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
