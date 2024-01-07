@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "market-shop",
   "version": "1.0.0",
-  "description": "Complete Node.js Guide",
+  "description": "creating my own shop!",
   "main": "app.js",
   "engines": {
     "node": "20.0.0"
