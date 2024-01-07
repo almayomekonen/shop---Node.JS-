@@ -22,3 +22,5 @@ Pug, and Handlebars, this shop application is crafted to provide a comprehensive
 - **Express-validator**: Ensuring proper input validation for enhanced data integrity and security.
 - **Sequelize**: Facilitating SQL database interactions, offering compatibility and versatility.
 - **EJS, Pug, Handlebars**: Multiple view engines providing flexibility for developers and enhancing the user interface.
+
+<img src="https://almayo-mek.com/Images/shop.jpeg">
