@@ -1,29 +1,109 @@
-.orders {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+body {
+  background-color: #f3f4f6;
+  font-family: "Nunito", sans-serif;
 }
 
-.orders__item h1 {
-    margin: 0;
-    font-size: 1rem;
+.max-w-screen-xl {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-.orders__item {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  padding: 1rem;
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bg-white {
+  background-color: #00695dce;
+  border: 4px solid black;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.p-6 {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.text-xl {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.mb-4 {
   margin-bottom: 1rem;
 }
 
 .orders__products {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .orders__products-item {
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    border: 1px solid #00695c;
-    color: #00695c;
+  margin-bottom: 0.5rem;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+.bg-gray-100 {
+  background-color: #edf2f7;
+  margin: 5px;
+}
+
+.border-t {
+  background-color: #00695d00;
+  border-top-width: 1px;
+  border-color: #cbd5e0;
+}
+
+a {
+  text-decoration: none;
+  color: #00695c;
+  font-weight: bold;
+}
+a:hover {
+  color: black;
+}
+
+.btn {
+  background-color: #ffeb3b;
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  font: inherit;
+  color: #00695c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ffeb3b !important;
 }

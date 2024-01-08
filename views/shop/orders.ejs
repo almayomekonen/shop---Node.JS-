@@ -3,27 +3,35 @@
     <link rel="icon" type="image/x-icon" href="/images/2331966.png">
     </head>
 
-    <body>
+    <body class="bg-gray-100 font-sans">
         <%- include('../includes/navigation.ejs') %>
-            <main>
+            <main class="max-w-screen-xl mx-auto p-8">
                 <% if (orders.length <=0) { %>
-                    <h1>Nothing there!</h1>
+                    <h1 class="text-3xl text-center my-8">Nothing there!</h1>
                     <% } else { %>
-                        <ul class="orders">
+                        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                             <% orders.forEach(order=> { %>
-                                <li class="orders__item">
-                                    <h1>Order - # <%= order._id %> - <a href="/orders/<%=order._id%>">Invoice</a>
-                                    </h1>
-                                    <ul class="orders__products">
-                                        <% order.products.forEach(p=> { %>
-                                            <li class="orders__products-item">
-                                                <%= p.product.title %> (<%= p.quantity %>)
-                                            </li>
-                                            <% }); %>
-                                    </ul>
-                                </li>
+                                <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                                    <div class="p-6">
+                                        <h1 class="text-xl font-semibold mb-4">Order - #<%= order._id %>
+                                        </h1>
+                                        <ul class="orders__products">
+                                            <% order.products.forEach(p=> { %>
+                                                <li class="orders__products-item">
+                                                    <%= p.product.title %> (<%= p.quantity %>)
+                                                </li>
+                                                <% }); %>
+                                        </ul>
+                                    </div>
+                                    <div class="p-6 bg-gray-100 border-t border-gray-300">
+                                        <button class="btn" type="button"> <a href="/orders/<%= order._id %>"
+                                                class="text-blue-500 hover:underline">View
+                                                Invoice</a></button>
+                                    </div>
+                                </div>
                                 <% }); %>
-                        </ul>
+                        </div>
                         <% } %>
             </main>
             <%- include('../includes/end.ejs') %>
+    </body>
